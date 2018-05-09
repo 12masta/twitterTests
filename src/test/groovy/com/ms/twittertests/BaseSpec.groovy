@@ -40,4 +40,13 @@ class BaseSpec extends Specification {
         new LogInPageWebImpl(driver)
                 .logIn(user)
     }
+
+    @Shared
+    generator = { String alphabet, int n ->
+        new Random().with {
+            (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+        }
+    }
+    @Shared
+    randomString = generator( (('A'..'Z')+('0'..'9')).join(), 9 )
 }
