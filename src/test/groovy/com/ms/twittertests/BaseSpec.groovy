@@ -19,6 +19,14 @@ class BaseSpec extends Specification {
     @Shared
     User validUser = new UserImpl(DummyUser.BASE_USER.login, DummyUser.BASE_USER.password)
 
+    @Shared
+            generator = { int n ->
+                new Random().with {
+                    String alphabet = (('A'..'Z') + ('0'..'9')).join()
+                    (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
+                }
+            }
+
     def setupSpec() {
         WebDriverManager.chromedriver().setup()
     }
@@ -40,13 +48,4 @@ class BaseSpec extends Specification {
         new LogInPageWebImpl(driver)
                 .logIn(user)
     }
-
-    @Shared
-    generator = { String alphabet, int n ->
-        new Random().with {
-            (1..n).collect { alphabet[ nextInt( alphabet.length() ) ] }.join()
-        }
-    }
-    @Shared
-    randomString = generator( (('A'..'Z')+('0'..'9')).join(), 9 )
 }

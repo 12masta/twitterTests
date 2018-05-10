@@ -18,7 +18,7 @@ class TweetSpec extends BaseSpec {
 
         where:
         tweetBody    | user
-        randomString | validUser
+        generator(9) | validUser
     }
 
     @Unroll
@@ -29,10 +29,10 @@ class TweetSpec extends BaseSpec {
         homePage.postTweetUsingNavBar tweetBody
 
         then: "tweet shown on the top of the timeline"
-        homePage.isTweetShownOnTheTopOfTheTimeline tweetBody
+        homePage.isTweetWasSendModalShown
 
         where:
-        tweetBody    | user
-        randomString | validUser
+        tweetBody     | user
+        generator(10) | validUser
     }
 }
