@@ -34,6 +34,9 @@ public class HomePageWebImpl extends BasePage implements HomePage {
     @FindBy(xpath = "//div[@id='Tweetstorm-tweet-box-0']//div[@class='TweetBoxToolbar']//button[contains(@class, 'SendTweetsButton')]")
     private WebElement tweetstormTweetButton;
 
+    @FindBy(id = "message-drawer")
+    private WebElement messageDrawer;
+
     @Override
     public boolean isHomePage() {
         return driver.getTitle().equals("Twitter");
@@ -56,9 +59,20 @@ public class HomePageWebImpl extends BasePage implements HomePage {
     }
 
     @Override
+    public boolean getIsTweetWasSendModalShown() {
+        waitForModal(By.id("message-drawer"), "class", "alert-messages js-message-drawer-visible");
+        return messageDrawer.isDisplayed();
+    }
+
+    @Override
     public boolean isTweetShownOnTheTopOfTheTimeline(String tweetBody) {
         waitForListUpdate();
         return timeline.findElements(listElementsLocator).get(0).findElement(By.tagName("p")).getText().equals(tweetBody);
+    }
+
+    private void waitForModal(By locator, String attribute, String attributeValue){
+        new WebDriverWait(driver, 10)
+                .until(ExpectedConditions.attributeContains(By.id("message-drawer"), "class", "alert-messages js-message-drawer-visible"));
     }
 
     private void waitForListUpdate() {
