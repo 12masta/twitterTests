@@ -1,11 +1,11 @@
 package com.ms.twittertests
 
+import com.ms.twittertests.api.TweetFavorites
 import com.ms.twittertests.api.TweetTimeline
 import com.ms.twittertests.credentials.User
 import com.ms.twittertests.credentials.UserImpl
-import com.ms.twittertests.data.DummyUser
 import com.ms.twittertests.http.HttpClientImpl
-import com.ms.twittertests.http.OauthResolver
+import com.ms.twittertests.http.HttpData
 import com.ms.twittertests.pages.HomePage
 import com.ms.twittertests.pages.LogInPageWebImpl
 import io.github.bonigarcia.wdm.WebDriverManager
@@ -21,13 +21,16 @@ class BaseSpec extends Specification {
     WebDriver driver
 
     @Shared
-    User validUser = new UserImpl(
-            DummyUser.BASE_USER.login,
-            DummyUser.BASE_USER.password,
-            DummyUser.BASE_USER.tweeterId,
-            DummyUser.BASE_USER.name)
+    def tweetTimeline
 
-    def tweetTimeline = new TweetTimeline(new HttpClientImpl(new OauthResolver(), new OkHttpClient()))
+    @Shared
+    def tweetFavorites
+
+    @Shared
+    def configuration
+
+    @Shared
+    User validUser
 
     @Shared
             generator = { int n ->
@@ -38,6 +41,22 @@ class BaseSpec extends Specification {
             }
 
     def setupSpec() {
+        configuration = getConfig()
+        def httpData = new HttpData(
+                configuration.baseUrl,
+                configuration.baseApiUrl,
+                configuration.apiVersion,
+                configuration.consumerKey,
+                configuration.consumerSecret,
+                configuration.accessToken,
+                configuration.accessTokenSecret)
+        validUser = new UserImpl(
+                configuration.login,
+                configuration.password,
+                configuration.tweeterId,
+                configuration.name)
+        tweetTimeline = new TweetTimeline(httpData, new HttpClientImpl(httpData, new OkHttpClient()))
+        tweetFavorites = new TweetFavorites(httpData, new HttpClientImpl(httpData, new OkHttpClient()))
         WebDriverManager.chromedriver().setup()
     }
 
@@ -45,13 +64,17 @@ class BaseSpec extends Specification {
         driver = new ChromeDriver()
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS)
         driver.manage().window().maximize()
-        driver.get("https://twitter.com/login")
+        driver.get(configuration.baseUrl + "/login")
     }
 
     def cleanup() {
         if (driver != null) {
             driver.quit()
         }
+    }
+
+    def getConfig() {
+        new ConfigSlurper("production").parse(getClass().getResource("/Config.groovy").toURI().toURL())
     }
 
     HomePage logIn(User user) {
