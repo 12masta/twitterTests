@@ -8,4 +8,6 @@ public interface HomePage {
     boolean isTweetShownOnTheTopOfTheTimeline(String tweetBody);
 
     HomePage postTweetUsingNavBar(String tweetBody);
+
+    boolean getIsTweetWasSendModalShown();
 }
