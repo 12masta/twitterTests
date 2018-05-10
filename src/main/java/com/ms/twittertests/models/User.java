@@ -1,58 +1,55 @@
 
 package com.ms.twittertests.models;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-    "id",
-    "id_str",
-    "name",
-    "screen_name",
-    "location",
-    "description",
-    "url",
-    "entities",
-    "protected",
-    "followers_count",
-    "friends_count",
-    "listed_count",
-    "created_at",
-    "favourites_count",
-    "utc_offset",
-    "time_zone",
-    "geo_enabled",
-    "verified",
-    "statuses_count",
-    "lang",
-    "contributors_enabled",
-    "is_translator",
-    "is_translation_enabled",
-    "profile_background_color",
-    "profile_background_image_url",
-    "profile_background_image_url_https",
-    "profile_background_tile",
-    "profile_image_url",
-    "profile_image_url_https",
-    "profile_link_color",
-    "profile_sidebar_border_color",
-    "profile_sidebar_fill_color",
-    "profile_text_color",
-    "profile_use_background_image",
-    "has_extended_profile",
-    "default_profile",
-    "default_profile_image",
-    "following",
-    "follow_request_sent",
-    "notifications",
-    "translator_type"
+        "id",
+        "id_str",
+        "name",
+        "screen_name",
+        "location",
+        "description",
+        "url",
+        "entities",
+        "protected",
+        "followers_count",
+        "friends_count",
+        "listed_count",
+        "created_at",
+        "favourites_count",
+        "utc_offset",
+        "time_zone",
+        "geo_enabled",
+        "verified",
+        "statuses_count",
+        "lang",
+        "contributors_enabled",
+        "is_translator",
+        "is_translation_enabled",
+        "profile_background_color",
+        "profile_background_image_url",
+        "profile_background_image_url_https",
+        "profile_background_tile",
+        "profile_image_url",
+        "profile_image_url_https",
+        "profile_banner_url",
+        "profile_link_color",
+        "profile_sidebar_border_color",
+        "profile_sidebar_fill_color",
+        "profile_text_color",
+        "profile_use_background_image",
+        "has_extended_profile",
+        "default_profile",
+        "default_profile_image",
+        "following",
+        "follow_request_sent",
+        "notifications",
+        "translator_type"
 })
 public class User {
 
@@ -69,7 +66,7 @@ public class User {
     @JsonProperty("description")
     private String description;
     @JsonProperty("url")
-    private Object url;
+    private String url;
     @JsonProperty("entities")
     private Entities_ entities;
     @JsonProperty("protected")
@@ -105,15 +102,17 @@ public class User {
     @JsonProperty("profile_background_color")
     private String profileBackgroundColor;
     @JsonProperty("profile_background_image_url")
-    private Object profileBackgroundImageUrl;
+    private String profileBackgroundImageUrl;
     @JsonProperty("profile_background_image_url_https")
-    private Object profileBackgroundImageUrlHttps;
+    private String profileBackgroundImageUrlHttps;
     @JsonProperty("profile_background_tile")
     private Boolean profileBackgroundTile;
     @JsonProperty("profile_image_url")
     private String profileImageUrl;
     @JsonProperty("profile_image_url_https")
     private String profileImageUrlHttps;
+    @JsonProperty("profile_banner_url")
+    private String profileBannerUrl;
     @JsonProperty("profile_link_color")
     private String profileLinkColor;
     @JsonProperty("profile_sidebar_border_color")
@@ -202,12 +201,12 @@ public class User {
     }
 
     @JsonProperty("url")
-    public Object getUrl() {
+    public String getUrl() {
         return url;
     }
 
     @JsonProperty("url")
-    public void setUrl(Object url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 
@@ -382,22 +381,22 @@ public class User {
     }
 
     @JsonProperty("profile_background_image_url")
-    public Object getProfileBackgroundImageUrl() {
+    public String getProfileBackgroundImageUrl() {
         return profileBackgroundImageUrl;
     }
 
     @JsonProperty("profile_background_image_url")
-    public void setProfileBackgroundImageUrl(Object profileBackgroundImageUrl) {
+    public void setProfileBackgroundImageUrl(String profileBackgroundImageUrl) {
         this.profileBackgroundImageUrl = profileBackgroundImageUrl;
     }
 
     @JsonProperty("profile_background_image_url_https")
-    public Object getProfileBackgroundImageUrlHttps() {
+    public String getProfileBackgroundImageUrlHttps() {
         return profileBackgroundImageUrlHttps;
     }
 
     @JsonProperty("profile_background_image_url_https")
-    public void setProfileBackgroundImageUrlHttps(Object profileBackgroundImageUrlHttps) {
+    public void setProfileBackgroundImageUrlHttps(String profileBackgroundImageUrlHttps) {
         this.profileBackgroundImageUrlHttps = profileBackgroundImageUrlHttps;
     }
 
@@ -429,6 +428,16 @@ public class User {
     @JsonProperty("profile_image_url_https")
     public void setProfileImageUrlHttps(String profileImageUrlHttps) {
         this.profileImageUrlHttps = profileImageUrlHttps;
+    }
+
+    @JsonProperty("profile_banner_url")
+    public String getProfileBannerUrl() {
+        return profileBannerUrl;
+    }
+
+    @JsonProperty("profile_banner_url")
+    public void setProfileBannerUrl(String profileBannerUrl) {
+        this.profileBannerUrl = profileBannerUrl;
     }
 
     @JsonProperty("profile_link_color")
