@@ -26,7 +26,9 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.5'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.5'
     compile 'org.awaitility:awaitility:3.1.0'
-
+    compile 'se.akerfeldt:okhttp-signpost:1.1.0'
+    compile 'oauth.signpost:signpost-core:1.2.1.2'
+    compile 'com.anotherchrisberry:spock-retry:0.6.3'
 
     // Use the awesome Spock testing and specification framework
     testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'

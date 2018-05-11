@@ -10,4 +10,8 @@ public interface HomePage {
     HomePage postTweetUsingNavBar(String tweetBody);
 
     boolean getIsTweetWasSendModalShown();
+
+    String likeTweet(int number);
+
+    boolean isTweetLiked(String id);
 }

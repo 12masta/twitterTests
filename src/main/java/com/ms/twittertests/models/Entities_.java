@@ -1,24 +1,33 @@
 
 package com.ms.twittertests.models;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.HashMap;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-    "description"
+        "url",
+        "description"
 })
 public class Entities_ {
 
+    @JsonProperty("url")
+    private Url_ url;
     @JsonProperty("description")
     private Description description;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    @JsonProperty("url")
+    public Url_ getUrl() {
+        return url;
+    }
+
+    @JsonProperty("url")
+    public void setUrl(Url_ url) {
+        this.url = url;
+    }
 
     @JsonProperty("description")
     public Description getDescription() {

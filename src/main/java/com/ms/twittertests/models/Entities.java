@@ -1,42 +1,38 @@
 
 package com.ms.twittertests.models;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
-    "hashtags",
-    "symbols",
-    "user_mentions",
-    "urls"
+        "hashtags",
+        "symbols",
+        "user_mentions",
+        "urls"
 })
 public class Entities {
 
     @JsonProperty("hashtags")
-    private List<Object> hashtags = null;
+    private List<Hashtag> hashtags = null;
     @JsonProperty("symbols")
     private List<Object> symbols = null;
     @JsonProperty("user_mentions")
-    private List<Object> userMentions = null;
+    private List<UserMention> userMentions = null;
     @JsonProperty("urls")
-    private List<Object> urls = null;
+    private List<Url> urls = null;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("hashtags")
-    public List<Object> getHashtags() {
+    public List<Hashtag> getHashtags() {
         return hashtags;
     }
 
     @JsonProperty("hashtags")
-    public void setHashtags(List<Object> hashtags) {
+    public void setHashtags(List<Hashtag> hashtags) {
         this.hashtags = hashtags;
     }
 
@@ -51,22 +47,22 @@ public class Entities {
     }
 
     @JsonProperty("user_mentions")
-    public List<Object> getUserMentions() {
+    public List<UserMention> getUserMentions() {
         return userMentions;
     }
 
     @JsonProperty("user_mentions")
-    public void setUserMentions(List<Object> userMentions) {
+    public void setUserMentions(List<UserMention> userMentions) {
         this.userMentions = userMentions;
     }
 
     @JsonProperty("urls")
-    public List<Object> getUrls() {
+    public List<Url> getUrls() {
         return urls;
     }
 
     @JsonProperty("urls")
-    public void setUrls(List<Object> urls) {
+    public void setUrls(List<Url> urls) {
         this.urls = urls;
     }
 

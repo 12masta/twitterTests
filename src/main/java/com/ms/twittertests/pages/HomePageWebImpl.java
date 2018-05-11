@@ -7,9 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+import java.util.Optional;
+
 public class HomePageWebImpl extends BasePage implements HomePage {
     private int numberOfLiElements;
-    private By listElementsLocator = By.tagName("li");
+    private By listElementsLocator = By.xpath(".//li[@data-item-type='tweet']");
 
     public HomePageWebImpl(WebDriver driver) {
         super(driver);
@@ -44,6 +47,7 @@ public class HomePageWebImpl extends BasePage implements HomePage {
 
     @Override
     public HomePage postTweetUsingTimeline(String tweetBody) {
+        numberOfLiElements = driver.findElements(listElementsLocator).size();
         tweetBoxHomeTimelineInput.click();
         tweetBoxHomeTimelineInput.sendKeys(tweetBody);
         tweetButton.click();
@@ -65,6 +69,22 @@ public class HomePageWebImpl extends BasePage implements HomePage {
     }
 
     @Override
+    public String likeTweet(int number) {
+        WebElement tweet =  timeline.findElements(listElementsLocator).get(number);
+        tweet.findElement(By.xpath(".//button[@class='ProfileTweet-actionButton js-actionButton js-actionFavorite']")).click();
+        return tweet.getAttribute("id");
+    }
+
+    @Override
+    public boolean isTweetLiked(String id) {
+        String likedButtonLocator = "ProfileTweet-action ProfileTweet-action--favorite js-toggleState";
+        Optional<WebElement> webElement = timeline.findElements(listElementsLocator).stream()
+                .filter(x -> x.getAttribute("id").equals(id))
+                .findFirst();
+        return webElement.get().findElements(By.xpath(".//div[@class='" + likedButtonLocator + "']")).size() > 0;
+    }
+
+    @Override
     public boolean isTweetShownOnTheTopOfTheTimeline(String tweetBody) {
         waitForListUpdate();
         return timeline.findElements(listElementsLocator).get(0).findElement(By.tagName("p")).getText().equals(tweetBody);
@@ -72,7 +92,7 @@ public class HomePageWebImpl extends BasePage implements HomePage {
 
     private void waitForModal(By locator, String attribute, String attributeValue){
         new WebDriverWait(driver, 10)
-                .until(ExpectedConditions.attributeContains(By.id("message-drawer"), "class", "alert-messages js-message-drawer-visible"));
+                .until(ExpectedConditions.attributeContains(locator, attribute, attributeValue));
     }
 
     private void waitForListUpdate() {

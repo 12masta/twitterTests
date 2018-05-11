@@ -8,6 +8,9 @@ import java.lang.Void as TestCase
 class TweetSpec extends BaseSpec {
     @Unroll
     TestCase "User post a tweet using timeline"() {
+        given: "user has no tweets"
+        tweetTimeline.removeTweets(user)
+
         when: "user log in"
         def homePage = logIn user
         and: "post a tweet using timeline"
@@ -23,6 +26,9 @@ class TweetSpec extends BaseSpec {
 
     @Unroll
     TestCase "User post a tweet using navbar"() {
+        given: "user has no tweets"
+        tweetTimeline.removeTweets(user)
+
         when: "user log in"
         def homePage = logIn user
         and: "post a tweet using timeline"
@@ -38,7 +44,9 @@ class TweetSpec extends BaseSpec {
 
     @Unroll
     TestCase "User post a tweet using timeline and tweet appears in the api"() {
-        given: "timeline has specified size"
+        given: "user has no tweets"
+        tweetTimeline.removeTweets(user)
+        and: "timeline has specified size"
         def numbersOfTweetsBefore = tweetTimeline.getUserTimeline(user).size()
 
         when: "user log in"
@@ -61,7 +69,9 @@ class TweetSpec extends BaseSpec {
 
     @Unroll
     TestCase "User post a tweet using navbar and tweet appears in the api"() {
-        given: "timeline has specified size"
+        given: "user has no tweets"
+        tweetTimeline.removeTweets(user)
+        and: "timeline has specified size"
         def numbersOfTweetsBefore = tweetTimeline.getUserTimeline(user).size()
 
         when: "user log in"
