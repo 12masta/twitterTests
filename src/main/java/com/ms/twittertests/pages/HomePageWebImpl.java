@@ -47,6 +47,7 @@ public class HomePageWebImpl extends BasePage implements HomePage {
 
     @Override
     public HomePage postTweetUsingTimeline(String tweetBody) {
+        numberOfLiElements = driver.findElements(listElementsLocator).size();
         tweetBoxHomeTimelineInput.click();
         tweetBoxHomeTimelineInput.sendKeys(tweetBody);
         tweetButton.click();

@@ -33,4 +33,15 @@ public class TweetTimeline {
         String json = httpClient.get(httpData.getBaseApiUrl() + "/" + httpData.getVersion() + "/statuses/user_timeline.json?user_id=" + user.getTweeterId());
         return Mapper.parseJsonArray(json, Tweet.class);
     }
+
+    public void removeTweets(User user) throws ClassNotFoundException, OAuthExpectationFailedException, OAuthCommunicationException, OAuthMessageSignerException, IOException {
+        List<Tweet> tweets = getUserTimeline(user);
+        for (Tweet tweet : tweets) {
+            removeTweet(tweet);
+        }
+    }
+
+    private void removeTweet(Tweet tweet) throws OAuthExpectationFailedException, OAuthCommunicationException, OAuthMessageSignerException, IOException {
+        httpClient.post(httpData.getBaseApiUrl() + "/" + httpData.getVersion() + "/statuses/destroy/" + tweet.getIdStr() + ".json", "");
+    }
 }
