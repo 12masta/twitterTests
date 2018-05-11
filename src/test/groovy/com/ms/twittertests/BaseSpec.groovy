@@ -1,5 +1,6 @@
 package com.ms.twittertests
 
+import com.anotherchrisberry.spock.extensions.retry.RetryOnFailure
 import com.ms.twittertests.api.TweetFavorites
 import com.ms.twittertests.api.TweetTimeline
 import com.ms.twittertests.credentials.User
@@ -17,14 +18,15 @@ import spock.lang.Specification
 
 import java.util.concurrent.TimeUnit
 
+@RetryOnFailure(times=3)
 class BaseSpec extends Specification {
     WebDriver driver
 
     @Shared
-    def tweetTimeline
+    TweetTimeline tweetTimeline
 
     @Shared
-    def tweetFavorites
+    TweetFavorites tweetFavorites
 
     @Shared
     def configuration
