@@ -11,6 +11,9 @@ import oauth.signpost.exception.OAuthMessageSignerException;
 import java.io.IOException;
 import java.util.List;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+import static org.awaitility.Awaitility.await;
+
 public class TweetFavorites {
     private HttpData httpData;
     private HttpClient httpClient;
@@ -34,5 +37,10 @@ public class TweetFavorites {
 
     private void destroyTweetLikes(Tweet tweet) throws IOException, OAuthCommunicationException, OAuthExpectationFailedException, OAuthMessageSignerException {
         httpClient.post(httpData.getBaseApiUrl() + "/" + httpData.getVersion() + "/favorites/destroy.json?id=" + tweet.getIdStr(), "");
+    }
+
+    public List<Tweet> getTweetLikesAwaitable(int expectedNumber) throws ClassNotFoundException, OAuthExpectationFailedException, OAuthCommunicationException, OAuthMessageSignerException, IOException {
+        await().atMost(30, SECONDS).until(() -> getTweetLikes().size() == expectedNumber);
+        return getTweetLikes();
     }
 }
