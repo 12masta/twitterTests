@@ -1,5 +1,4 @@
-# Twitter tests for Netguru - enjoy :)
-
+# Twitter tests
 ## Setup
 
 Chrome browser installed.
